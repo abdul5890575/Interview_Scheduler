@@ -5,23 +5,6 @@ import "components/Application.scss";
 import DayList from "components/DayList"
 import Appointment from "components/Appointment"
 
-// const days = [
-//   {
-//     id: 1,
-//     name: "Monday",
-//     spots: 2,
-//   },
-//   {
-//     id: 2,
-//     name: "Tuesday",
-//     spots: 5,
-//   },
-//   {
-//     id: 3,
-//     name: "Wednesday",
-//     spots: 0,
-//   },
-// ];
 
 const appointments = [
   {
@@ -68,8 +51,18 @@ const appointments = [
 
 
 export default function Application(props) {
-  const [Day, setDay] = useState("");
-  const [days, setDays] = useState([]);
+  // const [Day, setDay] = useState("");
+  // const [days, setDays] = useState([]);
+
+
+  const [state, setState] = useState({
+    Day: "Monday",
+    days: [],
+    appointments: {}
+  });
+
+  const setDay = Day => setState({ ...state, Day})
+  const setDays = days => setState(prev => ({ ...prev, days }))
   
 
   useEffect(() => {
@@ -94,7 +87,7 @@ export default function Application(props) {
       />
       <hr className="sidebar__separator sidebar--centered" />
       <nav className="sidebar__menu">
-      <DayList days={days} day={Day} setDay={setDay} />
+      <DayList days={state.days} day={state.Day} setDay={setDay} />
       </nav>
       <img
         className="sidebar__lhl sidebar--centered"
