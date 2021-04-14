@@ -1,4 +1,5 @@
 export function getAppointmentsForDay (state, day) {
+    console.log(state)
    const daysArray = state.days;
    let AppArray1 = []
    let resultArray = []
