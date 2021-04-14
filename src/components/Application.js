@@ -41,16 +41,28 @@ const appointments = [
   },
   {
     id: 3,
-    time: "5pm",
+    time: "6pm",
     interview: {
       student: "abbs",
       interviewer: {
         id: 4,
-        name: "ff",
+        name: "fadd",
         avatar: "https://i.imgur.com/LpaY82x.png",
       }
     }
-  }
+  },
+  {
+    id: 6,
+    time: "10pm",
+    interview: {
+      student: "James",
+      interviewer: {
+        id: 8,
+        name: "Sylvia Palmer",
+        avatar: "https://i.imgur.com/LpaY82x.png",
+      }
+    }
+  },
 ];
 
 
@@ -58,7 +70,8 @@ export default function Application(props) {
   const [Day, setDay] = useState("Monday");
 
  
-  let ListofAppointments = appointments.map(appointment => <Appointment key={appointment.id} id={appointment.id} time={appointment.time} interview={appointment.interview} />) 
+  let ListofAppointments = appointments.map(appointment => <Appointment key={appointment.id}  {...appointment} />) 
+  const last = appointments.length-1
     
 
   return (
@@ -81,6 +94,7 @@ export default function Application(props) {
       </section>
       <section className="schedule">
       {ListofAppointments}
+      <Appointment key={last} id={appointments[3]['id']} time={appointments[3]['time']} interview={appointments[3]['interview']} />
       </section>
     </main>
   );
