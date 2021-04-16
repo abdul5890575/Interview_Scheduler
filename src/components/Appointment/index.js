@@ -15,6 +15,7 @@ export default function Appointment(props) {
   const CREATE ="CREATE";
   const SAVING ="SAVING"
   const CONFIRM="CONFIRM"
+  const DELETEING = "DELETEING"
 
   const { mode, transition, back } = useVisualMode( props.interview ? SHOW : EMPTY);
 
@@ -31,9 +32,23 @@ export default function Appointment(props) {
   }
 
   function deleteApp() {
+    transition(DELETEING)
     props.cancelInterview(props.id)
+    .then(() => {
+      transition(EMPTY);
+    })
 
   }
+
+
+  // useEffect(() => {
+  //   if (interview && mode === EMPTY) {
+  //     transition(SHOW);
+  //   }
+  //   if (interview === null && mode === SHOW) {
+  //     transition(EMPTY);
+  //   }
+  // }, [interview, transition, mode]);
 
   return (
     <article className="appointment">
@@ -42,6 +57,7 @@ export default function Appointment(props) {
       {mode === SHOW && (<Show cancel={props.cancel} student={props.interview.student} interviewer={props.interview.interviewer} onDelete={event =>transition(CONFIRM)}/>)}
       {mode === CREATE && (<Form interviewers={props.interviewers} onSave = {save} onCancel = {event => back()}/>)}
       {mode === SAVING && (<Status message="Saving"/>)}
+      {mode === DELETEING && (<Status message="Deleting"/>)}
       {mode === CONFIRM && (<Confirm message="Are you sure you want to delete"  onCancel = {event => back()} onConfirm={deleteApp}/>)}
     </article>
   );

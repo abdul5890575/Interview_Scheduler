@@ -12,6 +12,7 @@ const handleSubmit = (event) =>{
   event.preventDefault()
   console.log('this is name',name)
   props.onSave(name,interviewer)
+  
 }
 
 const reset = (event) =>{

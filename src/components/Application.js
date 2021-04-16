@@ -24,11 +24,29 @@ export default function Application(props) {
   const setDays = days => setState(prev => ({ ...prev, days }))
 
   function cancelInterview (id) {
+    const interview1 = null;
+
+    const appointment = {
+      ...state.appointments[id],
+      interview: { ...interview1 }
+    };
+      const appointments = {
+        ...state.appointments,
+        [id]: appointment
+      };
+
+    axios.delete(`/api/appointments/${id}`, {interview1})
+    .then(function (response) {
+      setState({...state, appointments})
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
      
   }
   
   function bookInterview(id, interview) {
-    console.log(id, interview);
+   
     const appointment = {
       ...state.appointments[id],
       interview: { ...interview }
@@ -38,16 +56,14 @@ export default function Application(props) {
         ...state.appointments,
         [id]: appointment
       };
-      console.log(appointments)
-     
+      
 
-      axios.post(`/api/appointments/${id}`, { interview })
+      axios.put(`/api/appointments/${id}`, { interview })
       .then(function (response) {
         setState({...state, appointments})
         console.log(state)
       })
       .catch(function (error) {
-        console.log('baddddddddddddddddddddd')
         console.log(error);
       });
 
