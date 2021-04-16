@@ -10,6 +10,8 @@ const [interviewer, setInterviewer] = useState(props.interviewer || null);
 
 const handleSubmit = (event) =>{
   event.preventDefault()
+  console.log('this is name',name)
+  props.onSave(name,interviewer)
 }
 
 const reset = (event) =>{
@@ -23,7 +25,7 @@ const handleName = event => setName(event.target.value)
     return (
         <main className="appointment__card appointment__card--create">
         <section className="appointment__card-left">
-          <form onSubmit={handleSubmit} autoComplete="off">
+          <form autoComplete="off">
             <input onChange = {handleName}
               className="appointment__create-input text--semi-bold"
               name="name"
@@ -37,7 +39,7 @@ const handleName = event => setName(event.target.value)
         <section className="appointment__card-right">
           <section className="appointment__actions">
             <Button  onClick = {reset} danger>Cancel</Button>
-            <Button  onClick = {props.onSave} confirm>Save</Button>
+            <Button  onClick = {handleSubmit} confirm>Save</Button>
           </section>
         </section>
       </main>

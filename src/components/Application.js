@@ -22,7 +22,37 @@ export default function Application(props) {
 
   const setDay = Day => setState({ ...state, Day})
   const setDays = days => setState(prev => ({ ...prev, days }))
+
+  function cancelInterview (id) {
+     
+  }
   
+  function bookInterview(id, interview) {
+    console.log(id, interview);
+    const appointment = {
+      ...state.appointments[id],
+      interview: { ...interview }
+    };
+
+      const appointments = {
+        ...state.appointments,
+        [id]: appointment
+      };
+      console.log(appointments)
+     
+
+      axios.post(`/api/appointments/${id}`, { interview })
+      .then(function (response) {
+        setState({...state, appointments})
+        console.log(state)
+      })
+      .catch(function (error) {
+        console.log('baddddddddddddddddddddd')
+        console.log(error);
+      });
+
+      
+  }
 
   useEffect(() => {
    
@@ -47,6 +77,8 @@ export default function Application(props) {
         time={appointment.time}
         interview={interview}
         interviewers={dailyinterviewers}
+        bookInterview={bookInterview}
+        cancelInterview ={cancelInterview}
       />
     ); 
   });
