@@ -4,6 +4,12 @@ export default function Show(props) {
     const handledtrashicon = ()=>{
         props.onDelete()
     }
+
+    const handleEdit = ()=>{
+        props.onEdit()
+    }
+
+    
   return (
     <main className="appointment__card appointment__card--show">
         <section className="appointment__card-left">
@@ -15,7 +21,7 @@ export default function Show(props) {
         </section>
         <section className="appointment__card-right">
             <section className="appointment__actions">
-            <img onClick = {props.onEdit}
+            <img onClick = {handleEdit}
                 className="appointment__actions-button"
                 src="images/edit.png"
                 alt="Edit"

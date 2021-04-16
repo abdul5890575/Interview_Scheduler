@@ -10,7 +10,6 @@ const [interviewer, setInterviewer] = useState(props.interviewer || null);
 
 const handleSubmit = (event) =>{
   event.preventDefault()
-  console.log('this is name',name)
   props.onSave(name,interviewer)
   
 }
