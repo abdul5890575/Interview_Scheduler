@@ -3,10 +3,8 @@ import React ,{ useState } from "react";
 export default function useVisualMode(initial) {
   const [mode, setMode] = useState(initial);
   const [history, setHistory] = useState([initial]);
-//   const [index,setIndex] = useState(0)
 
   const transition = (newmode, replace = false) =>{
-    // setMode(newmode)
     if (replace) {
         setMode(newmode)
         let shortHistory = history
@@ -18,7 +16,6 @@ export default function useVisualMode(initial) {
         setHistory(newHistory)
     }
   }
-
   
   const back = () =>{
     if (history.length === 1) {

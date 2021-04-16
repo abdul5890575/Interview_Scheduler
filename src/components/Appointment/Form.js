@@ -15,6 +15,7 @@ const handleSubmit = (event) =>{
 const reset = (event) =>{
   setName('')
   setInterviewer(null)
+  props.onCancel()
 }
 
 const handleName = event => setName(event.target.value)
