@@ -35,14 +35,10 @@ export default function Application(props) {
         [id]: appointment
       };
 
-    axios.delete(`/api/appointments/${id}`, {interview1})
+    return axios.delete(`/api/appointments/${id}`, {interview1})
     .then(function (response) {
       setState({...state, appointments})
     })
-    .catch(function (error) {
-      console.log(error);
-    });
-     
   }
   
   function bookInterview(id, interview) {
@@ -58,16 +54,11 @@ export default function Application(props) {
       };
       
 
-      axios.put(`/api/appointments/${id}`, { interview })
+      return axios.put(`/api/appointments/${id}`, { interview })
       .then(function (response) {
         setState({...state, appointments})
-        console.log(state)
       })
-      .catch(function (error) {
-        console.log(error);
-      });
-
-      
+         
   }
 
   useEffect(() => {
