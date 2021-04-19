@@ -9,12 +9,38 @@ export default function useApplicationData() {
     Day: "Monday",
     days: [],
     appointments: {},
-    interviewers :{}
+    interviewers :{},
+    spots: []
   });
+
+
+  function getDaybyID (id) {
+    //returns the seleted id object
+    let days = state.days.filter((day) => {
+      return day.appointments.includes(id)
+    })
+    return days[0]
+  }
+
 
   function cancelInterview (id) {
     const interview1 = null;
 
+    let day = getDaybyID(id)
+    
+    let new_day = {
+      ...day,
+      spots: day.spots + 1
+    };
+    
+    let new_days = [...state.days];
+
+    for (let i = 0; i < state.days.length; i++){
+      if(state.days[i].id === new_day.id){
+        new_days.splice(i, 1, new_day)
+      }
+    }
+  
     const appointment = {
       ...state.appointments[id],
       interview: { ...interview1 }
@@ -23,14 +49,26 @@ export default function useApplicationData() {
         ...state.appointments,
         [id]: appointment
       };
-
+     
     return axios.delete(`/api/appointments/${id}`, {interview1})
     .then(function (response) {
-      setState({...state, appointments})
+      setState({...state, days: new_days,  appointments })
     })
   }
   
   function bookInterview(id, interview) {
+
+    let day = getDaybyID(id);
+
+    let new_day = {...day, spots: day.spots - 1 };
+    
+    let new_days = [...state.days];
+
+    for (let i = 0; i < state.days.length; i++){
+      if(state.days[i].id === new_day.id){
+        new_days.splice(i, 1, new_day)
+      }
+    }
    
     const appointment = {
       ...state.appointments[id],
@@ -42,6 +80,7 @@ export default function useApplicationData() {
         [id]: appointment
       };
       
+
 
       return axios.put(`/api/appointments/${id}`, { interview })
       .then(function (response) {
@@ -62,5 +101,5 @@ export default function useApplicationData() {
     }, [])
  
 
-  return { state, setState,  bookInterview, cancelInterview, };
+  return { state, setState,  bookInterview, cancelInterview };
 }
