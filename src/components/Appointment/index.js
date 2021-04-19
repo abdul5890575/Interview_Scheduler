@@ -35,6 +35,18 @@ export default function Appointment(props) {
     
   }
 
+  function saveEdit(name, interviewer) {
+    const interview = {
+      student: name,
+      interviewer
+    };
+    transition(SAVING)
+    props.EditInterviews(props.id, interview)
+    .then(() => transition(SHOW))
+    .catch(error => transition(ERROR_SAVE));
+    
+  }
+
   function deleteApp() {
     transition(DELETEING,true)
     props.cancelInterview(props.id)
@@ -55,7 +67,7 @@ export default function Appointment(props) {
       {mode === ERROR_DELETE && (<Error message="Sorry could not delete" onClose={back}/>)}
       {mode === DELETEING && (<Status message="Deleting"/>)}
       {mode === CONFIRM && (<Confirm message="Are you sure you want to delete"  onCancel = {event => back()} onConfirm={deleteApp}/>)}
-      {mode === EDIT && (<Form interviewers={props.interviewers} name={props.interview.student} onSave = {save} onCancel = {event => back()}/>)}
+      {mode === EDIT && (<Form interviewers={props.interviewers} name={props.interview.student} onSave = {saveEdit} onCancel = {event => back()}/>)}
     </article>
   );
 }

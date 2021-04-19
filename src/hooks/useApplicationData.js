@@ -28,16 +28,13 @@ export default function useApplicationData() {
 
     let day = getDaybyID(id)
     
-    let new_day = {
-      ...day,
-      spots: day.spots + 1
-    };
+    let newDay = { ...day, spots: day.spots + 1 };
     
-    let new_days = [...state.days];
+    let newDays = [...state.days];
 
     for (let i = 0; i < state.days.length; i++){
-      if(state.days[i].id === new_day.id){
-        new_days.splice(i, 1, new_day)
+      if(state.days[i].id === newDay.id){
+        newDays.splice(i, 1, newDay)
       }
     }
   
@@ -52,21 +49,21 @@ export default function useApplicationData() {
      
     return axios.delete(`/api/appointments/${id}`, {interview1})
     .then(function (response) {
-      setState({...state, days: new_days,  appointments })
+      setState({...state, days: newDays,  appointments })
     })
   }
   
-  function bookInterview(id, interview) {
+  function bookInterview(id, interview ) {
 
     let day = getDaybyID(id);
 
-    let new_day = {...day, spots: day.spots - 1 };
+    let newDay = {...day, spots: day.spots - 1 };
     
-    let new_days = [...state.days];
+    let newDays = [...state.days];
 
     for (let i = 0; i < state.days.length; i++){
-      if(state.days[i].id === new_day.id){
-        new_days.splice(i, 1, new_day)
+      if(state.days[i].id === newDay.id){
+        newDays.splice(i, 1, newDay)
       }
     }
    
@@ -84,7 +81,26 @@ export default function useApplicationData() {
 
       return axios.put(`/api/appointments/${id}`, { interview })
       .then(function (response) {
-        setState({...state, appointments})
+        setState({...state, days: newDays, appointments})
+      })
+         
+  }
+
+  function EditInterviews(id, interview , edit = false) {
+
+    const appointment = {
+      ...state.appointments[id],
+      interview: { ...interview }
+    };
+
+      const appointments = {
+        ...state.appointments,
+        [id]: appointment
+      };
+
+      return axios.put(`/api/appointments/${id}`, { interview })
+      .then(function (response) {
+        setState({...state,  appointments})
       })
          
   }
@@ -101,5 +117,5 @@ export default function useApplicationData() {
     }, [])
  
 
-  return { state, setState,  bookInterview, cancelInterview };
+  return { state, setState,  bookInterview, cancelInterview ,EditInterviews};
 }
