@@ -9,8 +9,7 @@ export default function useApplicationData() {
     Day: "Monday",
     days: [],
     appointments: {},
-    interviewers :{},
-    spots: []
+    interviewers :{}
   });
 
 
