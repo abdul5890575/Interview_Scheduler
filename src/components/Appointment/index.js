@@ -57,7 +57,7 @@ export default function Appointment(props) {
   }
 
   return (
-    <article className="appointment">
+    <article className="appointment" data-testid="appointment" >
       <Header time={props.time}/>
       {mode === EMPTY && <Empty onAdd={event =>transition(CREATE)} />}
       {mode === SHOW && (<Show cancel={props.cancel} student={props.interview.student} interviewer={props.interview.interviewer} onEdit={event =>transition(EDIT)} onDelete={event =>transition(CONFIRM)}/>)}

@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 
 function InterviewerList(props) {
   let interviewerList = props.interviewers.map(interviewer => <InterviewerListItem key={interviewer.id} name={interviewer.name} 
-  selected = {interviewer.id === props.interviewer} setInterviewer={(event)=>{props.setInterviewer(interviewer.id)}} avatar = {interviewer.avatar}/>)  
+  selected = {interviewer.id === props.interviewer} setInterviewer={(event)=>{props.setInterviewer(interviewer.id)}} avatar = {interviewer.avatar} alt ={interviewer.name}/>)  
 
   return (
     <section className="interviewers">
