@@ -1,4 +1,16 @@
 # Interview Scheduler
+A fullstack App that lets you save,edit and delete your interview appoinments.
+
+!["Main Page for all your URLS"]()
+
+## Dependencies
+
+- Node.js
+- Express
+- React
+- JEST
+- STORYBOOK
+- Cypress
 
 ## Setup
 
